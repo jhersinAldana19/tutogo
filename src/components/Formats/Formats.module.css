@@ -1,0 +1,191 @@
+.section {
+  background: var(--color-cream);
+  padding: 3.25rem 0 3.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.15rem;
+  color: var(--color-wine);
+}
+
+.gallery {
+  min-width: 0;
+}
+
+.scroller {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--color-cream);
+  color: var(--color-text);
+}
+
+.frame {
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s var(--ease);
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.95rem 0.9rem 1rem;
+  background: var(--color-cream);
+}
+
+.caption span {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  margin-bottom: 0.1rem;
+}
+
+.caption h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0 0 0.25rem;
+  color: var(--color-wine);
+}
+
+.caption p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  color: var(--color-muted);
+}
+
+.controls {
+  display: none;
+}
+
+.arrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: var(--color-wine);
+  color: var(--color-cream);
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  background: var(--color-wine-deep);
+  color: var(--color-gold);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(92 31 59 / 0.22);
+  cursor: pointer;
+}
+
+.dots .dotOn {
+  background: var(--color-wine);
+  transform: scale(1.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover img,
+  .card:focus-within img {
+    transform: scale(1.06);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 5.5rem 0 5.75rem;
+  }
+
+  .caption {
+    padding: 1.1rem 1.05rem 1.15rem;
+  }
+
+  .caption p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .scroller {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .caption {
+    padding: 0.75rem 0 0;
+    position: static;
+  }
+
+  .caption h3 {
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+  }
+
+  .caption p {
+    font-size: 0.95rem;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 4.5rem 0 4.75rem;
+  }
+}

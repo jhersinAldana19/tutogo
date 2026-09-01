@@ -1,0 +1,42 @@
+/**
+ * Design tokens extraídos del PDF TutoGo Sales Book 2026.
+ * Valores tomados de fills vectoriales y colores de texto del documento.
+ * No son una paleta inventada.
+ */
+:root {
+  --color-wine: #5c1f3b;
+  --color-wine-deep: #3d1428;
+  --color-gold: #e8a33d;
+  --color-rose: #c97b84;
+  --color-cream: #f7ede9;
+  --color-white: #ffffff;
+  --color-text: #2b2320;
+  --color-muted: #8a7570;
+  --color-rose-mist: #efdce2;
+  --color-wine-soft: #d9b8c4;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Source Sans 3", Calibri, "Segoe UI", sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3.5rem;
+  --space-xl: 6rem;
+  --space-2xl: 8.5rem;
+
+  --wrap: min(64rem, calc(100% - 2rem));
+  --wrap-wide: min(64rem, calc(100% - 2rem));
+  --nav-h: 3.75rem;
+  --measure: 38rem;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --wrap: min(64rem, calc(100% - 4rem));
+    --wrap-wide: min(64rem, calc(100% - 4rem));
+    --nav-h: 4.25rem;
+  }
+}

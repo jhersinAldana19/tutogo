@@ -1,0 +1,27 @@
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  white-space: nowrap;
+  vertical-align: -0.2em;
+  line-height: 1;
+}
+
+.mark img {
+  display: block;
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+  flex: 0 0 18px;
+  object-fit: contain;
+  background: #111;
+  border-radius: 4px;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.mark span {
+  font-size: 0.95em;
+  font-weight: 700;
+}

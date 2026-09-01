@@ -1,0 +1,157 @@
+.hero {
+  background: var(--color-wine);
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.shell {
+  display: grid;
+  width: var(--wrap-wide);
+  margin-inline: auto;
+  min-height: 0;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--nav-h) + 1.4rem) 0 1.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.85rem;
+}
+
+.word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.55rem, 13vw, 3.5rem);
+  line-height: 0.86;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.headline {
+  max-width: none;
+  font-size: 1.12rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-rose-mist);
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+.actions :global(a) {
+  display: inline-flex;
+  width: auto;
+  min-height: 2.75rem;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+.visual {
+  position: relative;
+  padding: 0 0 2rem;
+}
+
+.collage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.plate {
+  position: relative;
+  z-index: 2;
+  margin: 0.85rem 0 0;
+  width: 100%;
+  background: var(--color-cream);
+  color: var(--color-wine);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+}
+
+.statLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0.3rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    min-height: 100svh;
+    gap: 1.25rem;
+  }
+
+  .copy {
+    padding: 8rem 0.5rem 4.5rem 0;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-size: 0.82rem;
+    letter-spacing: 0.28em;
+  }
+
+  .word {
+    font-size: clamp(3.4rem, 7vw, 5.6rem);
+    line-height: 0.82;
+  }
+
+  .headline {
+    max-width: 22ch;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  }
+
+  .visual {
+    padding: 6.5rem 0 2.5rem;
+  }
+
+  .plate {
+    position: absolute;
+    margin: 0;
+    left: -1.25rem;
+    right: auto;
+    bottom: 2.4rem;
+    width: 16.5rem;
+    padding: 0.85rem 0.95rem 0.95rem;
+  }
+
+  .statNum {
+    font-size: 2.15rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .copy {
+    padding-right: 1rem;
+  }
+
+  .word {
+    font-size: clamp(4.4rem, 7vw, 6.5rem);
+  }
+}

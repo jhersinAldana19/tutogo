@@ -1,0 +1,104 @@
+.gender {
+  display: flex;
+  min-height: 10.5rem;
+  overflow: hidden;
+  max-width: 42rem;
+}
+
+.women,
+.men {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  flex-basis: 0;
+  padding: 0.85rem 0.9rem 0.95rem;
+  color: var(--color-white);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.women {
+  background: var(--color-rose);
+}
+
+.men {
+  background: var(--color-wine);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .women:hover,
+  .women:focus-visible {
+    background: var(--color-gold);
+    color: var(--color-wine);
+  }
+
+  .men:hover,
+  .men:focus-visible {
+    background: var(--color-rose);
+  }
+}
+
+.figure {
+  position: absolute;
+  right: 0.15rem;
+  bottom: 0;
+  height: 94%;
+  width: auto;
+  fill: currentColor;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.men .figure {
+  right: -0.15rem;
+}
+
+.meta {
+  position: relative;
+  z-index: 1;
+  padding-right: 2.4rem;
+}
+
+.pct {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  line-height: 0.85;
+  margin-bottom: 0.25rem;
+}
+
+.note {
+  margin-top: 0.9rem;
+  font-style: italic;
+  color: var(--color-muted);
+  max-width: 42rem;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 767px) {
+  .gender {
+    flex-direction: column;
+    min-height: 0;
+    max-width: none;
+  }
+
+  .women,
+  .men {
+    flex-grow: 1 !important;
+    min-height: 7.25rem;
+  }
+
+  .figure {
+    height: 100%;
+    right: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gender {
+    min-height: 11.5rem;
+  }
+}
