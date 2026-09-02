@@ -39,6 +39,7 @@ export default function Categories() {
   const reduced = usePrefersReducedMotion();
   const [active, setActive] = useState(0);
   const [layout, setLayout] = useState("mobile");
+  const [hot, setHot] = useState(false);
   const cardRefs = useRef([]);
   const stageRef = useRef(null);
   const touchStartX = useRef(0);
@@ -73,46 +74,53 @@ export default function Categories() {
 
   const count = slides.length;
   const current = slides[active];
+  const finePointer =
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const select = useCallback(
+    (index) => {
+      setHot(false);
+      setActive(wrap(index, count));
+    },
+    [count],
+  );
 
   const go = useCallback(
     (delta) => {
-      setActive((index) => wrap(index + delta, count));
+      select(active + delta);
     },
-    [count],
+    [active, select],
   );
 
   useLayoutEffect(() => {
     const coverflow = layout !== "mobile" && !reduced;
     const shift = layout === "desktop" ? 360 : layout === "tablet" ? 250 : 0;
 
-    const tweens = slides.map((_, index) => {
+    slides.forEach((_, index) => {
       const el = cardRefs.current[index];
-      if (!el) return null;
+      if (!el) return;
 
       const offset = shortestOffset(index, active, count);
       const abs = Math.abs(offset);
       const visible = coverflow ? abs <= 1 : offset === 0;
 
-      return gsap.to(el, {
+      gsap.to(el, {
         xPercent: -50,
         yPercent: -50,
         x: coverflow ? offset * shift : 0,
-        z: coverflow ? (offset === 0 ? 40 : -80) : 0,
-        rotationY: coverflow ? offset * -28 : 0,
-        transformPerspective: 1200,
+        z: coverflow ? (offset === 0 ? 28 : -48) : 0,
+        rotationY: coverflow ? offset * -18 : 0,
+        transformPerspective: 1400,
         force3D: true,
-        scale: offset === 0 ? 1 : 0.9,
+        scale: offset === 0 ? 1 : 0.92,
         autoAlpha: visible ? 1 : 0,
         zIndex: offset === 0 ? 5 : 4 - abs,
-        duration: reduced ? 0.25 : 0.65,
-        ease: "power3.out",
+        duration: reduced ? 0.2 : 0.9,
+        ease: "power2.inOut",
         overwrite: "auto",
       });
     });
-
-    return () => {
-      tweens.forEach((tween) => tween?.kill());
-    };
   }, [active, count, reduced, slides, layout]);
 
   return (
@@ -159,14 +167,14 @@ export default function Categories() {
                 ? offset === 0
                 : Math.abs(offset) <= 1;
               const isCenter = offset === 0;
-              const Tag = isCenter ? "a" : "button";
 
               return (
-                <Tag
+                <button
                   key={slide.name}
-                  href={isCenter ? hero.ctaPrimary.href : undefined}
-                  type={isCenter ? undefined : "button"}
-                  className={`${styles.card} ${isCenter ? styles.center : ""}`}
+                  type="button"
+                  className={`${styles.card} ${isCenter ? styles.center : ""} ${
+                    isCenter && hot ? styles.hot : ""
+                  }`}
                   ref={(node) => {
                     cardRefs.current[index] = node;
                   }}
@@ -178,14 +186,25 @@ export default function Categories() {
                       ? `${slide.name}. ${hero.ctaPrimary.label}`
                       : slide.name
                   }
-                  disabled={isCenter || visible ? undefined : true}
+                  disabled={visible ? undefined : true}
+                  onPointerEnter={() => {
+                    if (isCenter && finePointer) setHot(true);
+                  }}
+                  onPointerLeave={() => setHot(false)}
                   onClick={(event) => {
                     if (skipClick.current) {
                       event.preventDefault();
                       skipClick.current = false;
                       return;
                     }
-                    if (!isCenter) setActive(index);
+                    if (!isCenter) {
+                      select(index);
+                      return;
+                    }
+                    document
+                      .getElementById("campana")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                    history.replaceState(null, "", "#campana");
                   }}
                 >
                   <img
@@ -216,7 +235,7 @@ export default function Categories() {
                     <span>{slide.n}</span>
                     <strong>{slide.name}</strong>
                   </span>
-                </Tag>
+                </button>
               );
             })}
           </div>
@@ -239,7 +258,7 @@ export default function Categories() {
                   aria-selected={index === active}
                   aria-label={slide.name}
                   className={index === active ? styles.dotOn : ""}
-                  onClick={() => setActive(index)}
+                  onClick={() => select(index)}
                 />
               ))}
             </div>
