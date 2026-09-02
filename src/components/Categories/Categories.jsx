@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { categories } from "../../content/site";
+import { categories, hero } from "../../content/site";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import belleza from "../../assets/categories/cat-belleza.webp";
 import moda from "../../assets/categories/cat-moda.webp";
@@ -42,6 +42,7 @@ export default function Categories() {
   const cardRefs = useRef([]);
   const stageRef = useRef(null);
   const touchStartX = useRef(0);
+  const skipClick = useRef(false);
 
   useEffect(() => {
     const tablet = window.matchMedia("(min-width: 768px)");
@@ -148,6 +149,7 @@ export default function Categories() {
             onTouchEnd={(event) => {
               const dx = event.changedTouches[0].clientX - touchStartX.current;
               if (Math.abs(dx) < 48) return;
+              skipClick.current = true;
               go(dx < 0 ? 1 : -1);
             }}
           >
@@ -156,22 +158,34 @@ export default function Categories() {
               const visible = layout === "mobile" || reduced
                 ? offset === 0
                 : Math.abs(offset) <= 1;
+              const isCenter = offset === 0;
+              const Tag = isCenter ? "a" : "button";
 
               return (
-                <button
+                <Tag
                   key={slide.name}
-                  type="button"
-                  className={`${styles.card} ${offset === 0 ? styles.center : ""}`}
+                  href={isCenter ? hero.ctaPrimary.href : undefined}
+                  type={isCenter ? undefined : "button"}
+                  className={`${styles.card} ${isCenter ? styles.center : ""}`}
                   ref={(node) => {
                     cardRefs.current[index] = node;
                   }}
                   tabIndex={visible ? 0 : -1}
                   aria-hidden={visible ? undefined : "true"}
-                  aria-current={offset === 0 ? "true" : undefined}
-                  aria-label={slide.name}
-                  disabled={!visible}
-                  onClick={() => {
-                    if (offset !== 0) setActive(index);
+                  aria-current={isCenter ? "true" : undefined}
+                  aria-label={
+                    isCenter
+                      ? `${slide.name}. ${hero.ctaPrimary.label}`
+                      : slide.name
+                  }
+                  disabled={isCenter || visible ? undefined : true}
+                  onClick={(event) => {
+                    if (skipClick.current) {
+                      event.preventDefault();
+                      skipClick.current = false;
+                      return;
+                    }
+                    if (!isCenter) setActive(index);
                   }}
                 >
                   <img
@@ -181,11 +195,28 @@ export default function Categories() {
                     height={1200}
                     draggable="false"
                   />
+                  {isCenter ? (
+                    <span className={styles.action} aria-hidden="true">
+                      <span className={styles.icon}>
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                          <path
+                            d="M5 12h12M13 6l6 6-6 6"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="square"
+                          />
+                        </svg>
+                      </span>
+                      <span className={styles.actionLabel}>
+                        {hero.ctaPrimary.label}
+                      </span>
+                    </span>
+                  ) : null}
                   <span className={styles.label}>
                     <span>{slide.n}</span>
                     <strong>{slide.name}</strong>
                   </span>
-                </button>
+                </Tag>
               );
             })}
           </div>
