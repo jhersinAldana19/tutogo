@@ -50,6 +50,30 @@
   color: var(--color-gold);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.cta {
+  padding: 0.48rem 0.8rem;
+  font-size: 0.78rem;
+  min-height: 2.4rem;
+  white-space: nowrap;
+}
+
+.solid .cta {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+.solid .cta:hover,
+.solid .cta:focus-visible {
+  color: var(--color-wine-deep);
+}
+
 .menuBtn {
   z-index: 2;
   border: 0;
@@ -102,6 +126,11 @@
   letter-spacing: 0.02em;
 }
 
+.mobileCta {
+  align-self: flex-start;
+  margin-top: 1.5rem;
+}
+
 .mobileMeta {
   color: var(--color-rose-mist);
   max-width: 20rem;
@@ -111,6 +140,13 @@
 @media (min-width: 1024px) {
   .desktop {
     display: flex;
+    margin-left: auto;
+    margin-right: 0.35rem;
+  }
+
+  .cta {
+    padding: 0.52rem 0.95rem;
+    font-size: 0.82rem;
   }
 
   .menuBtn,
