@@ -57,8 +57,12 @@
 }
 
 .card:disabled {
-  cursor: default;
-  opacity: 1;
+  pointer-events: none;
+}
+
+.card:not(.center):hover img,
+.card:not(.center):focus-visible img {
+  filter: brightness(1.08);
 }
 
 .card img {
@@ -68,11 +72,42 @@
   pointer-events: none;
 }
 
+.label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.65rem 0.7rem 0.7rem;
+  background: var(--color-cream);
+  text-align: left;
+  pointer-events: none;
+}
+
+.label span {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+  font-size: 0.72rem;
+}
+
+.label strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-wine);
+  font-size: clamp(1.05rem, 3.8vw, 1.28rem);
+  line-height: 1.08;
+  margin-top: 0.12rem;
+}
+
 .controls {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.7rem;
-  margin-top: 1.15rem;
+  gap: 0.85rem;
+  margin-top: 0.9rem;
 }
 
 .arrow {
@@ -93,41 +128,20 @@
   color: var(--color-gold);
 }
 
-.caption {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.caption span {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--color-gold);
-  font-size: 0.82rem;
-  margin-bottom: 0.2rem;
-}
-
-.caption em {
-  font-style: normal;
-  color: var(--color-muted);
-}
-
-.caption strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 4vw, 1.9rem);
-  font-weight: 700;
-  color: var(--color-wine);
-  line-height: 1.1;
-}
-
 .dots {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.45rem;
-  margin-top: 1rem;
+}
+
+.live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .dots button {
@@ -152,11 +166,23 @@
 
   .stage {
     overflow: visible;
-    height: min(58svh, 460px);
+    height: min(52svh, 420px);
   }
 
   .card {
-    width: min(36vw, 268px);
+    width: min(28vw, 220px);
+  }
+
+  .label {
+    padding: 0.75rem 0.8rem 0.85rem;
+  }
+
+  .label strong {
+    font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+  }
+
+  .center .label strong {
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
   }
 }
 
@@ -166,10 +192,18 @@
   }
 
   .stage {
-    height: 480px;
+    height: 460px;
   }
 
   .card {
-    width: 280px;
+    width: 240px;
+  }
+
+  .label strong {
+    font-size: 1.22rem;
+  }
+
+  .center .label strong {
+    font-size: 1.38rem;
   }
 }
